@@ -7,8 +7,8 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "SIGNUPDATA":
 console.log(action.payload);
-      action.uid = state.signupreducer.uid;
-      return state.signupreducer;
+      state.userid = action.payload;
+      return state;
     default:
       return state;
   }

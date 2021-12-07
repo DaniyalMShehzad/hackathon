@@ -1,11 +1,15 @@
 const INITIAL_STATE = {
   label: "Login Reducer Here",
+  userid: false
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case "LOGIN":
+      console.log(action.payload);
+      state.userid = action.payload;
+      return state;
     default:
       return state;
   }
 };
-export default reducer;

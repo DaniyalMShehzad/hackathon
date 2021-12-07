@@ -3,6 +3,8 @@ import AppRouter from "./config/router";
 import { Provider } from "react-redux";
 import store from "./config/store";
 import "./config/firebasefunc"
+import 'antd/dist/antd.min.css';
+
 function App() {
   return (
     <div className="App">

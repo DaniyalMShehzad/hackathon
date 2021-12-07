@@ -1,4 +1,4 @@
-function Input(props) {
+function InputText(props) {
   return <input className={`inp ${props.className}`} {...props} />;
 }
-export default Input;
+export default InputText;
