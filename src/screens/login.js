@@ -22,9 +22,9 @@ function Login() {
   };
 
 
-  let forgpassword=()=>{
-    dispatch((dispatch) => forgetpassword(dispatch, navigate));
-  }
+  // let forgpassword=()=>{
+  //   dispatch((dispatch) => forgetpassword(dispatch, navigate));
+  // }
   return (
     <>
       <div className="login">

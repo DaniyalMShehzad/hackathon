@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,updatePassword,getASecureRandomPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword} from "firebase/auth";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -51,17 +51,17 @@ let userLogin = (dispatch,obj, navigate) => {
   };
 
 
-let forgetpassword=()=>{
-const user = auth.currentUser;
-const newPassword = getASecureRandomPassword();
+// let forgetpassword=()=>{
+// const user = auth.currentUser;
+// const newPassword = getASecureRandomPassword();
 
-updatePassword(user, newPassword).then(() => {
-  // Update successful.
-}).catch((error) => {
-  // An error ocurred
-  // ...
-});
-}
+// updatePassword(user, newPassword).then(() => {
+//   // Update successful.
+// }).catch((error) => {
+//   // An error ocurred
+//   // ...
+// });
+// }
 // let dispatch=.dispatch
 // console.log(dispatch);
 let signUp = (dispatch,obj, navigate) => {
@@ -97,4 +97,4 @@ let signUp = (dispatch,obj, navigate) => {
 // }).catch((error) => {
 //   // An error happened.
 // });
-export { userLogin, signUp,signOut,forgetpassword};
+export { userLogin, signUp,signOut};
