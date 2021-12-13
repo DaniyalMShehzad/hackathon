@@ -6,8 +6,10 @@ import InputText from "../components/input";
 import { userLogin } from "../config/firebasefunc";
 import { useNavigate } from "react-router";
 import { Input } from 'antd';
+import Png from "./png.gif"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 function Login() {
+  const[loader,setLoader]=useState()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ function Login() {
       email,
       password,
     };
-    dispatch((dispatch) => userLogin(dispatch, obj, navigate));
+    dispatch((dispatch) => userLogin(dispatch, obj, navigate,setLoader));
   };
 
 
@@ -27,6 +29,12 @@ function Login() {
   // }
   return (
     <>
+        {
+      loader ?
+        //  <h1>LOADING......</h1>
+        <img src={Png} />
+
+        :
       <div className="login">
         <div className="login2">
           <form className="formLogin" onSubmit={(e) => login(e)}>
@@ -59,6 +67,7 @@ function Login() {
           </form>
         </div>
       </div>
+}
     </>
   );
 }

@@ -127,6 +127,10 @@ input.enterEmail:active {
   input.enterEmail:focus {
     border-color: #40a9ff;
     border-right-width: 2px!important;
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 143, 255, 0.248);
+    border-right-width: 1px!important;
+    outline: 0;
     }
 button.LoginBtn {
   background-color: black;
@@ -159,7 +163,7 @@ img.guestImg {
   background-color: #fff;
   background-image: none;
   border: 1px solid #d9d9d9;
-  border-radius: 15px;
+  border-radius: 15px !important;
   transition: all .3s;
   display: inline-flex;
   height: 40px;

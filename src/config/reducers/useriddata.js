@@ -1,11 +1,11 @@
 const INITIAL_STATE = {
-    label: "Login Reducer Here",
+    label: "userid Data Here",
     userid: false
   };
 
   export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-      case "USERUIDDATA":
+      case "USERIDDATA":
   // console.log(action.payload);
         state.userid = action.payload;
         return state;

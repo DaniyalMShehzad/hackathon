@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, set, push , child, get } from "firebase/database";
+import { getDatabase, ref, set, push, child, get } from "firebase/database";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -26,26 +26,41 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 // let dispatch=.dispatch
 // console.log(dispatch);
-let userLogin = (dispatch, obj, navigate) => {
+let userLogin = (dispatch, obj, navigate, setLoader) => {
+  setLoader(true)
   console.log(obj);
   signInWithEmailAndPassword(auth, obj.email, obj.password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
       let uid = user.uid;
-      console.log(user, uid);
+      console.log(uid);
+      let newobj = { ...obj, uid }
+      console.log(newobj.uid);
+      setLoader(false)
       dispatch({
         type: "LOGIN",
-        payload: obj,
-      });
+        payload: newobj,
+      })
+      // const dbRef = ref(getDatabase());
+      // get(child(dbRef, `authentication/${newobj.uid}/newobj`)).then((snapshot) => {
+      //   // if (snapshot.exists()) {
+      //     console.log(snapshot.val());
+      //     let uidData= {...snapshot.val()}
+      //     // }
+      //     setLoader(false);
+      //     // setUserLogin(true);
+      //   // setUserData(location.state);
+      //   // getData();
+      // })
       navigate("/navbar");
-
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // alert(errorMessage,"errar");
+      alert(errorMessage, "errar");
       console.log("erars");
+      setLoader(false)
       // ..
     });
 };
@@ -64,8 +79,9 @@ let userLogin = (dispatch, obj, navigate) => {
 // }
 // let dispatch=.dispatch
 // console.log(dispatch);
-let signUp = (dispatch, obj, navigate) => {
+let signUp = (dispatch, obj, navigate, setLoader) => {
   // return (dispatch) => {
+  setLoader(true)
   console.log(obj);
   createUserWithEmailAndPassword(auth, obj.email, obj.password)
     .then((userCredential) => {
@@ -81,65 +97,107 @@ let signUp = (dispatch, obj, navigate) => {
 
       }).then((res) => {
         console.log(res)
-        // dispatch({
-        //   type: "STUDENTAUTHENTICATION",
-        //   ...obj,
-        // })
+        dispatch({
+          type: "SIGNUPDATA",
+          payload: obj,
+        })
       })
-      dispatch({
-        type: "SIGNUPDATA",
-        payload: newobj,
-      });
-      console.log(uid);
+      console.log(newobj.uid);
       navigate("/navbar");
-
+      setLoader(false)
+      // const dbRef = ref(getDatabase());
+      // get(child(dbRef, `authentication/${newobj.uid}/newobj`)).then((snapshot) => {
+      //   // if (snapshot.exists()) {
+      //     console.log(snapshot.val());
+      //     let uidData= {...snapshot.val()}
+      //     // }
+      //     dispatch({
+      //       type: "SIGNUPDATA",
+      //       payload: uidData,
+      //     })
+      //     setLoader(false);
+      //     // setUserLogin(true);
+      //   // setUserData(location.state);
+      //   // getData();
+      // })
     })
     .catch((error) => {
+      setLoader(false)
       const errorCode = error.code;
       const errorMessage = error.message;
+      // return(
+      //   <>
+      //   <Result
+      //     status="warning"
+      //     title="Error"
+      //     // {errorMessage}
+      //   />
+      //   </>
+      //   )
       alert(errorMessage, "errar");
       console.log("erars");
       // ..
     });
   // };
 };
+const getData = (setLoader, dispatch, userid) => {
+  setLoader(true)
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `authentication/${userid.user}/newobj`)).then((snapshot) => {
+    // if (snapshot.exists()) {
+    console.log(snapshot.val());
+    let uidData = { ...snapshot.val() }
+    // }
+    dispatch({
+      type: "USERIDDATA",
+      payload: uidData,
+    })
+    setLoader(false);
+    // userid(false )
+    // setUserLogin(true);
+    // setUserData(location.state);
+    // getData();
+  })
+}
 
-
-let useruid = (setLoader, dispatch,navigate) => {
+let useruid = (setLoader, dispatch, navigate) => {
   setLoader(true);
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
-      console.log(uid);
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `authentication/${uid}/newobj`)).then((snapshot) => {
-        // if (snapshot.exists()) {
-          console.log(snapshot.val());
-          let uidData= {...snapshot.val()}
-        // }
-        dispatch({
-          type: "USERUIDDATA",
-          payload: uidData,
-        })
-        // setUserLogin(true);
-        // setUserData(location.state);
-        // getData();
+      // console.log(uid);
+      // const dbRef = ref(getDatabase());
+      // get(child(dbRef, `authentication/${uid}/newobj`)).then((snapshot) => {
+      //   // if (snapshot.exists()) {
+      //     console.log(snapshot.val());
+      //     let uidData= {...snapshot.val()}
+      //     // }
+      dispatch({
+        type: "USERUIDDATA",
+        payload: uid,
       })
       setLoader(false);
+      //     // setUserLogin(true);
+      //   // setUserData(location.state);
+      //   // getData();
+      // })
+      navigate("/")
     } else {
       console.log("error")
       navigate("/")
+      // window.location.pathname.split("/")
     }
   });
 }
 
-let signout = (navigate) => {
+let signout = (navigate, setLoader) => {
+  setLoader(true);
   signOut(auth).then(() => {
     console.log("Sign-out successful");
-
-  }).catch((error) => {
-    console.log("An error happened.",error);
     navigate("/")
+    setLoader(false);
+  }).catch((error) => {
+    console.log("An error happened.", error);
   });
 }
-export { userLogin, signUp, signout, useruid };
+export { userLogin, signUp, signout, useruid, getData };

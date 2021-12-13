@@ -5,6 +5,8 @@ import Button from "../components/button";
 import InputText from "../components/input";
 import { signUp } from "../config/firebasefunc";
 import { Input } from 'antd';
+import Png from "./png.gif"
+import { Result} from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone,onChange } from '@ant-design/icons';
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -15,7 +17,7 @@ function SignUp() {
   const [country, setCountry] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const[loader,setLoader]=useState()
   let signup = (e) => {
     e.preventDefault();
     let obj = {
@@ -26,11 +28,17 @@ function SignUp() {
       contact,
       country
     };
-    dispatch((dispatch)=>signUp(dispatch,obj, navigate));
+    dispatch((dispatch)=>signUp(dispatch,obj, navigate,setLoader));
   };
 
   return (
     <>
+        {
+      loader ?
+        //  <h1>LOADING......</h1>
+        <img src={Png} />
+
+        :
       <div className="SignUp">
         {/* <Navbar /> */}
         <div className="SignUp2">
@@ -88,6 +96,7 @@ function SignUp() {
           </form>
         </div>
       </div>
+}
     </>
   );
 }
