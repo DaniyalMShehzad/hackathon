@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, useNavigate} from "react-router-dom";
-import { useruid } from "../firebasefunc";
+import { firebaseRedrict, useruid } from "../firebasefunc";
 import { ButtonAppBar, Home, Login, SignUp, slick } from "./approuters";
 
 export default function AppRouter(props) {
@@ -12,6 +12,10 @@ export default function AppRouter(props) {
     dispatch(()=>useruid(setLoader, dispatch,navigate))
     // console.log(location.state);
   },[])
+  // useEffect(()=>{
+  //   dispatch(()=>firebaseRedrict( dispatch,navigate))
+  //   // console.log(location.state);
+  // },[])
   // console.log(window.location.href); 
   return (
     <>
@@ -19,6 +23,7 @@ export default function AppRouter(props) {
         <Routes>
           {/* <Route exact path="/" element={<Home />} /> */}
           <Route path="/" element={<Login />} />
+          {/* <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/navbar" element={<ButtonAppBar />} />
         </Routes>

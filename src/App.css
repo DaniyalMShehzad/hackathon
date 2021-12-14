@@ -2,6 +2,7 @@
   --darkColor: #023047;
   --light: #8ecae6;
   --footercolor:black;
+  --Buttoncolor:#000;
 }
 
 .App {
@@ -133,7 +134,7 @@ input.enterEmail:active {
     outline: 0;
     }
 button.LoginBtn {
-  background-color: black;
+  background-color: var(--Buttoncolor);
   color: white;
   font-size: 17px;
   border: none;
@@ -150,7 +151,17 @@ img.guestImg {
   margin-bottom: 14px;
 }
 
-
+button.LoginButton {
+  background-color: var(--Buttoncolor);
+  color: white;
+  font-size: 17px;
+  border: none;
+  height: 40px;
+  width: 82%;
+  margin: 40px;
+  cursor: pointer;
+  border-radius: 14px;
+}
 .ant-input-affix-wrapper {
   position: relative;
   display: inline-block;
@@ -224,3 +235,66 @@ footer.footer {
 .Footerh3{
   color: white;
 }
+
+
+
+
+
+
+/* Cards */
+
+
+.Cards3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 60px;
+}
+.CardsH3 {
+  margin: 0px;
+  color: black;
+  font-size: 18px;
+}
+p.CardsP {
+  margin: 0px;
+  font-size: 13px;
+  color: #565656;
+}
+p.CardsPrice {
+  font-size: 20px;
+  color: #000;
+  margin-bottom: 5px;
+}
+.CardsBTN{
+  background-color:  var(--Buttoncolor);
+  color: white;
+  font-size: 17px;
+  border: none;
+  height: 40px;
+  width: 82%;
+  margin: 10px 0px;
+  cursor: pointer;
+  border-radius: 14px;
+}
+.CardsBTN:hover{
+  opacity: 0.2;
+  color:  white;
+}
+img.CardsIMG {
+  width: 90%;
+  margin-top: 8px;
+}
+.Cards4 {
+  width: 30%;
+  /* background-color: ghostwhite; */
+  margin-bottom: 17px;
+  border: 1px solid #878787;
+  border-radius: 16px;
+}
+/* cards */
+
+
+
+
+

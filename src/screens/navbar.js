@@ -17,7 +17,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Box } from '@mui/material';
-import Card from './card';
+// import Card from './card';
 export default function ButtonAppBar() {
   const [loader, setLoader] = useState(false)
   const [auth, setAuth] = React.useState(true);
@@ -27,13 +27,13 @@ export default function ButtonAppBar() {
   const dispatch = useDispatch()
 
   const state = useSelector((e) => e)
-  console.log(state);
+  // console.log(state);
   let Logout = () => {
     dispatch(() => signout(navigate, setLoader,));
   };
-  console.log(state);
+  // console.log(state);
   let userid = { user: state.uiddata.userid }
-  console.log(userid);
+  // console.log(userid);
   useEffect(() => {
     dispatch(() => getData(setLoader, dispatch, userid))
     // console.log(location.state);
@@ -140,8 +140,8 @@ export default function ButtonAppBar() {
                   )}
                 </Toolbar>
               </AppBar>
-            </Box>
-            <Card />
+            </Box> 
+            {/* <Card /> */}
           </>
       }
     </>

@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,updatePassword  } from "firebase/auth";
 import { getDatabase, ref, set, push, child, get } from "firebase/database";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -26,7 +26,7 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 // let dispatch=.dispatch
 // console.log(dispatch);
-let userLogin = (dispatch, obj, navigate, setLoader) => {
+let userLogin = (dispatch, obj, navigate, setLoader,setLoader2) => {
   setLoader(true)
   console.log(obj);
   signInWithEmailAndPassword(auth, obj.email, obj.password)
@@ -56,29 +56,37 @@ let userLogin = (dispatch, obj, navigate, setLoader) => {
       navigate("/navbar");
     })
     .catch((error) => {
+      setLoader(false)
+      setLoader2(true)
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorMessage, "errar");
       console.log("erars");
-      setLoader(false)
       // ..
     });
 };
+function generatePassword() {
+  var length = 8,
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+      retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
+}
 
-
-// let forgetpassword=()=>{
-// const user = auth.currentUser;
-// const newPassword = getASecureRandomPassword();
-
-// updatePassword(user, newPassword).then(() => {
-//   // Update successful.
-// }).catch((error) => {
-//   // An error ocurred
-//   // ...
-// });
+// let changepassword=(dispatch,navigate,setLoader,setLoader2)=>{
+//   const user = auth.currentUser;
+//   const newPassword = generatePassword();
+//   updatePassword(user, newPassword).then(() => {
+//     console.log("Update successful.");
+//     navigate("/")
+//   }).catch((error) => {
+//     // An error ocurred
+//     console.log("An error ocurred.");
+//     // ...
+//   });
 // }
-// let dispatch=.dispatch
-// console.log(dispatch);
 let signUp = (dispatch, obj, navigate, setLoader) => {
   // return (dispatch) => {
   setLoader(true)
@@ -140,6 +148,17 @@ let signUp = (dispatch, obj, navigate, setLoader) => {
     });
   // };
 };
+// const firebaseRedrict=()=>{
+// const user = auth.currentUser;
+
+// // if (user) {
+// //   // User is signed in, see docs for a list of available properties
+// //   // https://firebase.google.com/docs/reference/js/firebase.User
+// //   // ...
+// // } else {
+// //   // No user is signed in.
+// // }
+// }
 const getData = (setLoader, dispatch, userid) => {
   setLoader(true)
   const dbRef = ref(getDatabase());
@@ -164,7 +183,9 @@ let useruid = (setLoader, dispatch, navigate) => {
   setLoader(true);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;
+      // const uid = user.currentUser.uid;
+      const uid= auth.currentUser.uid;
+      // console.log(uid);
       // console.log(uid);
       // const dbRef = ref(getDatabase());
       // get(child(dbRef, `authentication/${uid}/newobj`)).then((snapshot) => {
@@ -200,4 +221,4 @@ let signout = (navigate, setLoader) => {
     console.log("An error happened.", error);
   });
 }
-export { userLogin, signUp, signout, useruid, getData };
+export { userLogin, signUp, signout, useruid, getData,changepassword };

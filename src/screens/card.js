@@ -63,9 +63,9 @@ export default function Card() {
                                 <Cards key={i} className="Cards4">
                                     <img className="CardsIMG"  src={e.imge} />
                                     <h3 className="CardsH3">{e.name}</h3>
-                                    <h4 className="CardsH4">{e.type}</h4>
+                                    <h4 className="CardsH3">{e.type}</h4>
                                     <p className="CardsP">{e.discpriton}</p>
-                                    <p className="CardsP">{e.price}</p>
+                                    <p className="CardsPrice">{e.price}</p>
                                     <Button className="CardsBTN" 
                                     // onClick={add}
                                     >{e.button}</Button>
